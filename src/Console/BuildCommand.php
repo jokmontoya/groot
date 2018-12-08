@@ -21,7 +21,7 @@ class BuildCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $destination = dirname(dirname(__DIR__)) . '/markup';
+        $destination = getcwd() . '/markup';
         $path = dirname(dirname(__DIR__)) . '/app';
 
         $twig = new Environment(new Loader($path), [
