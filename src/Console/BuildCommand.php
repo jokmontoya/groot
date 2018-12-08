@@ -5,6 +5,8 @@ namespace FosterCommerce\Groot\Console;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Twig\Environment;
+use FosterCommerce\Groot\Twig\Loader;
 
 class BuildCommand extends Command
 {
@@ -18,6 +20,11 @@ class BuildCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        echo 'test';
+        $twig = new Environment(
+            new Loader(dirname(dirname(__DIR__)) . '/app'),
+            ['cache' => false]
+        );
+
+        echo $twig->render('index.twig');
     }
 }
