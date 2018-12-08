@@ -8,33 +8,21 @@ class File
 {
     const PARTIAL_PREFIX = '_';
 
-    public function __construct($name, $directory)
+    public function __construct($file)
     {
-        $this->name = $name;
-        $this->directory = $directory;
+        $this->file = $file;
     }
 
     public function isPartial()
     {
-        return Str::startsWith($this->name, static::PARTIAL_PREFIX);
+        return Str::startsWith(
+            $this->file->getRelativePathname(),
+            static::PARTIAL_PREFIX
+        );
     }
 
-    public function isDirectory()
+    public function __call($method, $arguments = [])
     {
-        return is_dir($this->path());
-    }
-
-    public function files()
-    {
-        return FileCollection::directory(
-            $this->directory . '/' . $this->name
-        )->map(function ($file) {
-            return new static($file, $this->path());
-        })->expand();
-    }
-
-    public function path()
-    {
-        return $this->directory . '/' . $this->name;
+        return call_user_func_array([$this->file, $method], $arguments);
     }
 }

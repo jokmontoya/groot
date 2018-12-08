@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Twig\Environment;
 use FosterCommerce\Groot\Twig\Loader;
-use FosterCommerce\Groot\FileCollection;
 use FosterCommerce\Groot\File;
 
 class BuildCommand extends Command
@@ -28,13 +27,13 @@ class BuildCommand extends Command
             'cache' => false,
         ]);
 
-        $files = FileCollection::directory($path)
-               ->map(function ($file) use ($path) {
-                   return new File($file, $path);
-               })
-               ->rejectPartials()
-               ->expand();
+        $files = collect(
+            (new \Illuminate\Filesystem\Filesystem)->allFiles($path)
+        )->map(function ($file) {
+            return new File($file);
+        })
+            ->reject->isPartial();
 
-        var_dump($files->map->path());
+        var_dump($files->map->getRelativePathname());
     }
 }
