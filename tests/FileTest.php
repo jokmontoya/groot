@@ -30,15 +30,18 @@ class FileTest extends TestCase
 
     function test_compile_to_twig()
     {
-        $engine = Mockery::spy(\Twig\Environment::class);
+        $view = Mockery::spy(\Twig\Environment::class);
+        app()->instance('view', $view);
+
         $filesystem = Mockery::spy(\Illuminate\Filesystem\Filesystem::class);
+        app()->instance('filesystem', $filesystem);
 
         $file = $this->newFile('index.twig', 'posts', 'posts/index.twig');
-        $file->render($engine, $filesystem);
+        $file->render();
 
-        $engine
+        $view
             ->shouldHaveReceived('render')
-            ->with('posts/index.html')
+            ->with('posts/index.twig')
             ->once();
 
         $filesystem
