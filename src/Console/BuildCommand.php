@@ -33,7 +33,7 @@ class BuildCommand extends Command
                 return new File($file);
             })
 
-            ->reject->isPartial()
+            ->filter->isView()
 
             ->each(function ($file) use ($destination) {
                 if (! $file->getRelativePath()) {
@@ -53,7 +53,7 @@ class BuildCommand extends Command
                 );
 
                 file_put_contents(
-                    $destination . '/' . $file->getMarkupFilename(),
+                    $destination . '/' . $file->compiledPathname(),
                     $markup
                 );
             });
