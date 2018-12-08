@@ -1,0 +1,20 @@
+{
+    "name": "fostercommerce/groot-starter",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jaggy",
+            "email": "jaggy@fostercommerce.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./umbrella/Groot"
+        }
+    ],
+    "require": {
+        "fostercommerce/groot": "dev-master"
+    }
+}
