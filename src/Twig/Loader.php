@@ -16,15 +16,14 @@ class Loader extends TwigFilesystemLoader
     }
 
     /**
-     * Check for dot notations in the template names.
-     *
-     * It's a bit cleaner than having to always append .twig or use slashes.
+     * Look for the template in the ignore folders and also convert dot notation
+     * into slashes.
      *
      * @param  string  $name
      * @return string
      */
     private function normalizeName($name)
     {
-        return str_replace('.', '/', $name) . '.twig';
+        return '_' . str_replace('.', '/', $name) . '.twig';
     }
 }

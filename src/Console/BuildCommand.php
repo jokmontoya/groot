@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Twig\Environment;
 use FosterCommerce\Groot\Twig\Loader;
+use FosterCommerce\Groot\FileCollection;
+use FosterCommerce\Groot\File;
 
 class BuildCommand extends Command
 {
@@ -20,11 +22,19 @@ class BuildCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $twig = new Environment(
-            new Loader(dirname(dirname(__DIR__)) . '/app'),
-            ['cache' => false]
-        );
+        $path = dirname(dirname(__DIR__)) . '/app';
 
-        echo $twig->render('index.twig');
+        $twig = new Environment(new Loader($path), [
+            'cache' => false,
+        ]);
+
+        $files = FileCollection::directory($path)
+               ->map(function ($file) use ($path) {
+                   return new File($file, $path);
+               })
+               ->rejectPartials()
+               ->expand();
+
+        var_dump($files->map->path());
     }
 }
