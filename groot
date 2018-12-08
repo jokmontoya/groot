@@ -1,11 +1,13 @@
 #!/usr/bin/env php
-
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
+use FosterCommerce\Groot\Console\BuildCommand;
 
-$application = new Application();
+$application = new Application('Groot');
+
+$application->add(new BuildCommand);
 
 $application->run();
