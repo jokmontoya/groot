@@ -9,9 +9,11 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 use Symfony\Component\Console\Application;
 use FosterCommerce\Groot\Console\BuildCommand;
+use FosterCommerce\Groot\Console\NewCommand;
 
 $application = new Application('Groot');
 
 $application->add(new BuildCommand);
+$application->add(new NewCommand);
 
 $application->run();
