@@ -22,7 +22,7 @@ trait RendersView
      */
     private function engine()
     {
-        $path = getcwd() . '/' . static::SOURCE;
+        $path = getcwd() . '/' . FileCollection::SOURCE;
 
         return new Environment(new Loader($path), [
             'cache' => false
@@ -59,9 +59,22 @@ trait RendersView
             $filesystem = $this->filesystem();
         }
 
+        if ($this->file->getRelativePath() && ! $this->directoryExists()) {
+            $this->createDirectory();
+        }
+
         $filesystem->put(
             getcwd() . '/' . static::DESTINATION . '/' . $this->compiledPathname(),
             $engine->render($this->getRelativePathname())
+        );
+    }
+
+    public function createDirectory()
+    {
+        $this->filesystem()->makeDirectory(
+            getcwd() . '/' . static::DESTINATION . '/' . $this->file->getRelativePath(),
+            $permissions = 0755,
+            $recursive = true
         );
     }
 }
