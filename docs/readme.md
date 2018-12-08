@@ -12,19 +12,19 @@ In Foster Commerce, we use Craft CMS to build out our projects. Rather than code
 
 Install Groot globally.
 
-```sh
+```bash
 composer global require fostercommerce/groot
 ```
 
 Next, let's create a new project.
 
-```sh
+```bash
 groot new blog
 ```
 
 All our templates and pages are inside the `/app` directory. To compile our `.twig` files,
 
-```sh
+```bash
 groot build
 ```
 
@@ -32,7 +32,7 @@ This writes our directory structure in a `markup` folder. All our assets are com
 
 We can also constantly watch changes from our `twig` files by running
 
-```sh
+```bash
 yarn run watch
 ```
 
