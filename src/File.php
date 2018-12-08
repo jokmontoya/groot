@@ -21,6 +21,11 @@ class File
         );
     }
 
+    public function getMarkupFilename()
+    {
+        return str_replace('.twig', '.html', $this->getRelativePathname());
+    }
+
     public function __call($method, $arguments = [])
     {
         return call_user_func_array([$this->file, $method], $arguments);

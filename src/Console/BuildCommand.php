@@ -21,19 +21,41 @@ class BuildCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $destination = dirname(dirname(__DIR__)) . '/markup';
         $path = dirname(dirname(__DIR__)) . '/app';
 
         $twig = new Environment(new Loader($path), [
             'cache' => false,
         ]);
 
-        $files = collect(
-            (new \Illuminate\Filesystem\Filesystem)->allFiles($path)
-        )->map(function ($file) {
-            return new File($file);
-        })
-            ->reject->isPartial();
+        $files = collect((new \Illuminate\Filesystem\Filesystem)->allFiles($path))
+            ->map(function ($file) {
+                return new File($file);
+            })
 
-        var_dump($files->map->getRelativePathname());
+            ->reject->isPartial()
+
+            ->each(function ($file) use ($destination) {
+                if (! $file->getRelativePath()) {
+                    return;
+                }
+
+                if (file_exists($destination . '/' . $file->getRelativePath())) {
+                    return;
+                }
+
+                mkdir($destination . '/' . $file->getRelativePath(), 0777, $recursive = true);
+            })
+
+            ->each(function ($file) use ($destination, $twig) {
+                $markup = $twig->render(
+                    $file->getRelativePathname()
+                );
+
+                file_put_contents(
+                    $destination . '/' . $file->getMarkupFilename(),
+                    $markup
+                );
+            });
     }
 }
