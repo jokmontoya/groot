@@ -6,17 +6,13 @@ use Illuminate\Support\Str;
 
 class File
 {
-    use RendersView;
+    use Concerns\RendersView;
 
     /**
      * All files and folders that are prefixed with an underscore will be
      * ignored when the compiler is ran.
      */
     const PARTIAL_PREFIX = '_';
-
-    const SOURCE = 'app';
-
-    const DESTINATION = 'markup';
 
     /**
      * The Symfony file instance.
@@ -42,13 +38,6 @@ class File
         return
             ! Str::startsWith($this->file->getRelativePathname(), static::PARTIAL_PREFIX) &&
             ! Str::startsWith($this->file->getFilename(), static::PARTIAL_PREFIX);
-    }
-
-    public function directoryExists()
-    {
-        return file_exists(
-            getcwd() . '/' . static::DESTINATION . '/' . $this->file->getRelativePath()
-        );
     }
 
     public function __call($method, $arguments = [])
