@@ -2,11 +2,18 @@ let AfterWebpack = require('on-build-webpack')
 let Watch = require('webpack-watch')
 let command = require('node-cmd')
 let { mix } = require('laravel-mix')
+let fs = require('fs')
+
+let bin = './vendor/bin/groot'
+
+if (! fs.existsSync(bin)) {
+    bin = 'groot'
+}
 
 mix.webpackConfig({
     plugins: [
         new AfterWebpack(() => {
-            command.get('./vendor/bin/groot build', (error, stdout, stderr) => {
+            command.get(`${bin} build`, (error, stdout, stderr) => {
                 console.log(error ? stderr : stdout);
             });
         }),
