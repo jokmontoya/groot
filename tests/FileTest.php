@@ -51,7 +51,7 @@ class FileTest extends TestCase
     {
         $file = $this->newFile('index.twig', 'posts', 'posts/index.twig');
 
-        $this->assertEquals($file->compiledPathname(), 'posts/index.html');
+        $this->assertEquals($file->destinationPathname(), 'vfs://groot/markup/posts/index.html');
     }
 
     function test_compile_to_twig()

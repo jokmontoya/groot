@@ -3,39 +3,44 @@
 namespace FosterCommerce\Groot;
 
 use Twig\Environment;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use FosterCommerce\Groot\Twig\Loader;
 use FosterCommerce\Groot\Container;
 
 trait RendersView
 {
-    public function compiledPathname()
+    private function destinationPath($path = null)
     {
-        return str_replace('.twig', '.html', $this->getRelativePathname());
+        return app('paths.destination') . '/' . $this->file->getRelativePath();
     }
 
-    /**
-     * Render the view.
-     *
-     * We're using nullable parameters here just for mocking purposes in testing.
-     * Just a quick hack before using a vfs.
-     */
+    public function destinationPathname()
+    {
+        return app('paths.destination') . '/' . str_replace('.twig', '.html', $this->getRelativePathname());
+    }
+
+    public function sourcePathname()
+    {
+        return $this->file->getRelativePathname();
+    }
+
     public function render()
     {
-        if ($this->file->getRelativePath() && ! $this->directoryExists()) {
-             $this->createDirectory();
-        }
+        $this->createDirectory();
 
-        app('filesystem')->put(
-            app('paths.destination') . '/' . $this->compiledPathname(),
-            app('view')->render($this->getRelativePathname())
-        );
+        $markup = app('view')->render($this->sourcePathname());
+
+        app('filesystem')->put($this->destinationPathname(), $markup);
     }
 
     public function createDirectory()
     {
+        if (! $this->file->getRelativePath() || file_exists($this->destinationPath())) {
+            return;
+        }
+
         app('filesystem')->makeDirectory(
-            app('paths.destination') . '/' . $this->file->getRelativePath(),
+            $this->destinationPath(),
             $permissions = 0755,
             $recursive = true
         );

@@ -44,13 +44,6 @@ class File
             ! Str::startsWith($this->file->getFilename(), static::PARTIAL_PREFIX);
     }
 
-    public function directoryExists()
-    {
-        return file_exists(
-            getcwd() . '/' . static::DESTINATION . '/' . $this->file->getRelativePath()
-        );
-    }
-
     public function __call($method, $arguments = [])
     {
         return call_user_func_array([$this->file, $method], $arguments);
