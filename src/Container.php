@@ -41,15 +41,37 @@ class Container extends Pimple
         return static::$instance;
     }
 
+    /**
+     * We use the array helper to allow the use of dot notation.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
     public function get($key)
     {
         return Arr::get($this, $key);
     }
 
+    /**
+     * Change the instance in the container.
+     *
+     * We'll mostly use this in switching out implementations with mocks or
+     * spies in our tests.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
     public function instance($key, $value)
     {
         $this[$key] = $value;
     }
+
+    /*
+    |----------------------------------------------------------
+    | Convenience Methods
+    |----------------------------------------------------------
+    */
 
     public function __get($key)
     {

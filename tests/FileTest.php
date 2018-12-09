@@ -30,8 +30,8 @@ class FileTest extends TestCase
 
         app()->instance('paths', [
             'base'        => $base = vfsStream::url('groot'),
-            'source'      => "{$base}/app",
-            'destination' => "{$base}/markup",
+            'source'      => $base . '/app',
+            'destination' => $base . '/markup',
         ]);
     }
 
@@ -45,13 +45,6 @@ class FileTest extends TestCase
 
         $file = $this->newFile('_index.twig', 'posts', 'posts/_index.twig');
         $this->assertFalse($file->isView());
-    }
-
-    function test_compiled_pathname()
-    {
-        $file = $this->newFile('index.twig', 'posts', 'posts/index.twig');
-
-        $this->assertEquals($file->destinationPathname(), 'vfs://groot/markup/posts/index.html');
     }
 
     function test_compile_to_twig()

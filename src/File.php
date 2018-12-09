@@ -6,17 +6,13 @@ use Illuminate\Support\Str;
 
 class File
 {
-    use RendersView;
+    use Concerns\RendersView;
 
     /**
      * All files and folders that are prefixed with an underscore will be
      * ignored when the compiler is ran.
      */
     const PARTIAL_PREFIX = '_';
-
-    const SOURCE = 'app';
-
-    const DESTINATION = 'markup';
 
     /**
      * The Symfony file instance.
