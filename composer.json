@@ -24,15 +24,15 @@
     "autoload": {
         "psr-4": {
             "FosterCommerce\\Groot\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests"
         },
         "files": [
             "src/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
     },
     "bin": [
         "groot"
