@@ -1,2 +1,5 @@
 /vendor
 /node_modules
+/web/css/*.css
+/web/js/*.js
+/web/mix-manifest.json
