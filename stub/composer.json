@@ -1,5 +1,11 @@
 {
     "require": {
         "fostercommerce/groot": "^0.1"
+    },
+    "scripts": {
+        "serve": "@php -S localhost:3000 -t web"
+    },
+    "config": {
+        "process-timeout": 0
     }
 }
