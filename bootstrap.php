@@ -8,7 +8,7 @@ use FosterCommerce\Groot\Twig\Loader;
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require __DIR__ . '/vendor/autoload.php';
 } else {
-    require __DIR__ . '/../../vendor/autoload.php';
+    require __DIR__ . '/../../autoload.php';
 }
 
 $container = new Container;
