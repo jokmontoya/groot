@@ -23,7 +23,7 @@ class Container extends Pimple
         $this['paths'] = [
             'base'        => $path,
             'source'      => "{$path}/app",
-            'destination' => "{$path}/markup",
+            'destination' => "{$path}/web/markup",
         ];
     }
 
