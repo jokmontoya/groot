@@ -28,7 +28,7 @@ class FileTest extends TestCase
             'markup' => [],
         ]);
 
-        app()->instance('paths', [
+        app()->set('paths', [
             'base'        => $base = vfsStream::url('groot'),
             'source'      => $base . '/app',
             'destination' => $base . '/markup',

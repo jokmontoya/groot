@@ -62,7 +62,7 @@ class Container extends Pimple
      * @param  mixed  $value
      * @return void
      */
-    public function instance($key, $value)
+    public function set($key, $value)
     {
         $this[$key] = $value;
     }
