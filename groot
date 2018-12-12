@@ -7,9 +7,9 @@ use FosterCommerce\Groot\Console\NewCommand;
 
 require_once __DIR__ . '/bootstrap.php';
 
-$application = new Application('Groot');
+$app = new Application('Groot');
 
-$application->add(new BuildCommand);
-$application->add(new NewCommand);
+$app->add(new BuildCommand);
+$app->add(new NewCommand);
 
-$application->run();
+$app->run();
