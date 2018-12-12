@@ -37,3 +37,9 @@ yarn run watch
 ```
 
 When webpack detects a change in any of the `twig` files, it'll immediately run `groot build`.
+
+To run the server, there's a shorthand composer script.
+
+```bash
+composer serve
+```
