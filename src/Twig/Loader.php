@@ -24,6 +24,6 @@ class Loader extends TwigFilesystemLoader
      */
     private function normalizeName($name)
     {
-        return '_' . str_replace('.', '/', $name) . '.twig';
+        return str_replace('.', '/', $name) . '.twig';
     }
 }
